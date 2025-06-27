@@ -1,0 +1,89 @@
+<!-- TOÀN BỘ TRONG 1 THẺ CHA -->
+<div id="drink-wrapper">
+
+  <!-- KHU DANH SÁCH MÓN -->
+  <div id="drink-section">
+    <h2 class="title">Danh sách đồ uống</h2>
+    <button id="btnShowForm" class="btn-add">+ Thêm món</button>
+
+    <div class="drink-grid">
+      <div class="drink-item">
+        <img src="../assets/image/milk_cafe.jpg" alt="Cà phê sữa">
+        <h3>Cà phê sữa</h3>
+        <p>25.000đ</p>
+        <div class="action-buttons">
+          <button class="btn-edit">Sửa</button>
+          <button class="btn-delete">Xoá</button>
+        </div>
+      </div>
+
+      <div class="drink-item">
+        <img src="../assets/image/milk_cafe.jpg" alt="Cà phê đen">
+        <h3>Cà phê đen</h3>
+        <p>20.000đ</p>
+        <div class="action-buttons">
+          <button class="btn-edit">Sửa</button>
+          <button class="btn-delete">Xoá</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="add-form">
+  <h3>Thêm món mới</h3>
+  <form id="drinkForm" method="dialog">
+    <label>Tên món:</label><br>
+    <input type="text" id="tenMon" required><br><br>
+
+    <label>Loại đồ uống:</label><br>
+    <input type="text" id="loaiDoUong" required><br><br>
+
+    <label>Hình ảnh (URL hoặc upload):</label><br>
+    <input type="text" id="hinhAnh" placeholder="URL ảnh"><br><br>
+
+    <label>Giá (VNĐ):</label><br>
+    <input type="number" id="gia" required><br><br>
+
+    <button type="submit" class="btn-save">Lưu</button>
+    <button type="button" id="btnCancel" class="btn-delete">Huỷ</button>
+  </form>
+</dialog>
+
+
+<link rel="stylesheet" href="../assets/css/drinks.css">
+
+<script>
+  btnShowForm?.addEventListener('click', () => {
+  addForm.showModal();  // Mở dialog
+});
+
+btnCancel?.addEventListener('click', () => {
+  addForm.close();      // Đóng dialog
+  drinkForm.reset();
+});
+
+drinkForm?.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const tenMon = document.getElementById('tenMon').value;
+  const loai = document.getElementById('loaiDoUong').value;
+  const hinh = document.getElementById('hinhAnh').value;
+  const gia = document.getElementById('gia').value;
+
+  const newDrink = document.createElement('div');
+  newDrink.className = 'drink-item';
+  newDrink.innerHTML = `
+    <img src="${hinh}" alt="${tenMon}">
+    <h3>${tenMon}</h3>
+    <p>${parseInt(gia).toLocaleString()}đ</p>
+    <div class="action-buttons">
+      <button class="btn-edit">Sửa</button>
+      <button class="btn-delete">Xoá</button>
+    </div>
+  `;
+  drinkGrid.appendChild(newDrink);
+
+  addForm.close();      // Đóng dialog sau khi thêm
+  drinkForm.reset();
+});
+
+</script>

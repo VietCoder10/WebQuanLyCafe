@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trang chủ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="../assets/image/logo.jpg" alt="Logo Quán Cà Phê" />
+      </div>
+      <nav class="menu">
+        <button>Trang chủ</button>
+        <button id="btn-drinks">Quản lý món</button>
+        <button id="btn-staff">Quản lý nhân viên</button>
+        <button>Quản lý kho</button>
+        <button>Quản lý đơn hàng</button>
+        <button>Thống kê</button>
+        <button id="logout">Đăng xuất</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <div class="user-avatar">
+          <img src="../assets/image/avatar.png" alt="Tài khoản" />
+        </div>
+      </header>
+
+      <section class="dashboard" id="main-content">
+        <h1>Chào mừng bạn đến với hệ thống quản lý quán cà phê</h1>
+        <p>Chọn chức năng ở menu bên trái để bắt đầu làm việc.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('logout').addEventListener('click', function () {
+      window.location.href = '../views/login.html';
+    });
+
+    document.getElementById('btn-drinks').addEventListener('click', function () {
+  fetch('../views/drinks.html')
+    .then(response => response.text())
+    .then(html => {
+      const mainContent = document.getElementById('main-content');
+      mainContent.innerHTML = html;
+
+      // TỰ GÁN LẠI SỰ KIỆN SAU KHI DOM MỚI ĐƯỢC TẢI
+      const btnShowForm = mainContent.querySelector('#btnShowForm');
+      const btnCancel = mainContent.querySelector('#btnCancel');
+      const form = mainContent.querySelector('#drinkForm');
+
+      if (btnShowForm) {
+        btnShowForm.addEventListener('click', () => {
+          mainContent.querySelector('#add-form').style.display = 'block';
+        });
+      }
+
+      if (btnCancel) {
+        btnCancel.addEventListener('click', () => {
+          mainContent.querySelector('#add-form').style.display = 'none';
+          form.reset();
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const tenMon = mainContent.querySelector('#tenMon').value;
+          const loai = mainContent.querySelector('#loaiDoUong').value;
+          const hinh = mainContent.querySelector('#hinhAnh').value;
+          const gia = mainContent.querySelector('#gia').value;
+
+          const newDrink = document.createElement('div');
+          newDrink.className = 'drink-item';
+          newDrink.innerHTML = `
+            <img src="${hinh}" alt="${tenMon}">
+            <h3>${tenMon}</h3>
+            <p>${parseInt(gia).toLocaleString()}đ</p>
+            <div class="action-buttons">
+              <button class="btn-edit">Sửa</button>
+              <button class="btn-delete">Xoá</button>
+            </div>
+          `;
+          mainContent.querySelector('.drink-grid').appendChild(newDrink);
+          mainContent.querySelector('#add-form').style.display = 'none';
+          form.reset();
+        });
+      }
+    });
+});
+document.getElementById('btn-staff').addEventListener('click', () => {
+  fetch('../views/staff.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('main-content').innerHTML = html;
+      const script = document.createElement('script');
+      script.src = '../controller/StaffController.js';
+      script.onload = () => {
+        // Đảm bảo DOM đã sẵn sàng
+        if (typeof initStaffPage === 'function') {
+          initStaffPage();
+        } else {
+          console.error('initStaffPage không được định nghĩa');
+        }
+      };
+      document.body.appendChild(script);
+    })
+    .catch(error => console.error('Lỗi tải staff.html:', error));
+});
+
+  </script>
+</body>
+</html>
