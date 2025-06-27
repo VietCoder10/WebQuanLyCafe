@@ -3,25 +3,21 @@
 ===================================== */
 .staff-management {
   padding: 30px;
-  background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
   border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  max-width: 95%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  max-width: 1280px;
   margin: 30px auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 700px; /* ✅ tăng chiều cao tối thiểu */
 }
-#hihi{
-  margin-top: -50px;
-  padding-bottom: 40px;
-}
+
 /* =====================================
    Bảng danh sách nhân viên
 ===================================== */
 #staffTable {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 5px;
+  margin-top: 25px;
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
@@ -50,30 +46,6 @@
 #staffTable td {
   color: #374151;
 }
-.staff-table-wrapper {
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
-}
-.staff-table-wrapper::-webkit-scrollbar {
-  width: 8px;
-}
-.staff-table-wrapper::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-}
-
-/* Cố định tiêu đề bảng khi cuộn */
-#staffTable thead th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: linear-gradient(90deg, #2563eb, #3b82f6);
-  color: white;
-}
-
 
 /* =====================================
    Form trong dialog
@@ -109,10 +81,7 @@ form input:focus {
    Dialog modal
 ===================================== */
 .modal {
-  width: 600px;
-  min-height: 550px; /* ✅ tăng chiều cao tối thiểu */
-  max-height: 90vh;  /* giữ không vượt quá màn hình */
-  overflow-y: auto;  /* cuộn nếu form dài */
+  width: 500px;
   padding: 30px;
   border: none;
   border-radius: 16px;
@@ -120,7 +89,6 @@ form input:focus {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease-in-out;
 }
-
 
 .modal::backdrop {
   background: rgba(0, 0, 0, 0.4);
@@ -158,22 +126,6 @@ button.cancel:hover {
   background-color: #dc2626;
   transform: translateY(-2px);
 }
-#btnShowForm {
-  background: linear-gradient(90deg, #10b981, #22d3ee);
-  color: white;
-  font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-#btnShowForm:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(90deg, #0ea5e9, #14b8a6);
-}
-
 
 /* =====================================
    Thông tin tính lương
